@@ -13,6 +13,7 @@ interface CartCtx {
   add: (l: Omit<CartLine, 'key'>) => void;
   setQty: (key: string, qty: number) => void;
   remove: (key: string) => void; clear: () => void;
+  reprice: (units: number[]) => void;
 }
 const Ctx = createContext<CartCtx | null>(null);
 const STORE = 'zk-cart-v1';
@@ -43,12 +44,13 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     setLines((p) => (qty <= 0 ? p.filter((x) => x.key !== key) : p.map((x) => (x.key === key ? { ...x, qty: Math.min(qty, 50) } : x)))), []);
   const remove = useCallback((key: string) => setLines((p) => p.filter((x) => x.key !== key)), []);
   const clear = useCallback(() => setLines([]), []);
+  const reprice = useCallback((units: number[]) => setLines((p) => p.map((l, i) => (units[i] > 0 ? { ...l, unit: units[i] } : l))), []);
 
   const value = useMemo<CartCtx>(() => ({
-    lines, open, setOpen, add, setQty, remove, clear,
+    lines, open, setOpen, add, setQty, remove, clear, reprice,
     count: lines.reduce((n, l) => n + l.qty, 0),
     subtotal: lines.reduce((n, l) => n + l.qty * l.unit, 0),
-  }), [lines, open, add, setQty, remove, clear]);
+  }), [lines, open, add, setQty, remove, clear, reprice]);
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }

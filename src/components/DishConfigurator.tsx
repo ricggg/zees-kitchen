@@ -58,10 +58,10 @@ export default function DishConfigurator({ dish }: { dish: Dish }) {
         <QtyStepper qty={qty} onChange={(n) => setQty(Math.max(1, n))} />
         <button
           className="btn-primary flex-1 disabled:cursor-not-allowed disabled:opacity-50 sm:flex-none"
-          disabled={missing.length > 0}
+          disabled={missing.length > 0 || !!dish.soldOut}
           onClick={() => add({ dishId: dish.id, slug: dish.slug, name: dish.name, qty, unit, options: chosen.map((c) => c.label), choiceIds: chosen.map((c) => c.id), note: note.trim() || undefined })}
         >
-          {missing.length ? `Choose ${missing[0].label.replace(/^Choose /i, '').toLowerCase()}` : `Add to cart · ${naira(unit * qty)}`}
+          {dish.soldOut ? 'Sold out today' : missing.length ? `Choose ${missing[0].label.replace(/^Choose /i, '').toLowerCase()}` : `Add to cart · ${naira(unit * qty)}`}
         </button>
       </div>
     </div>

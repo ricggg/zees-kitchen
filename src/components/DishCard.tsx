@@ -24,7 +24,7 @@ export default function DishCard({ dish }: { dish: Dish }) {
         <p className="line-clamp-2 text-sm text-ink/70">{dish.description}</p>
         <div className="mt-auto flex items-center justify-between gap-2 pt-3">
           <p className="font-semibold text-leaf-600">{naira(dish.price)}</p>
-          <AddButton dish={dish} />
+          {dish.soldOut ? <span className="rounded-full bg-ink/10 px-4 py-2 text-sm font-semibold text-ink/60">Sold out</span> : <AddButton dish={dish} />}
         </div>
       </div>
     </article>

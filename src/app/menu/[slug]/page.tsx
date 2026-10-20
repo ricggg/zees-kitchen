@@ -1,14 +1,16 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { dishes, getDish } from '@/lib/menu-data';
+import { getMenu } from '@/lib/menu';
 import { naira } from '@/lib/format';
 import DishConfigurator from '@/components/DishConfigurator';
 
-export const generateStaticParams = () => dishes.map((d) => ({ slug: d.slug }));
-export const generateMetadata = ({ params }: { params: { slug: string } }) => ({ title: getDish(params.slug)?.name ?? 'Dish' });
+export async function generateMetadata({ params }: { params: { slug: string } }) {
+  const d = (await getMenu()).find((x) => x.slug === params.slug);
+  return { title: d?.name ?? 'Dish', description: d?.description };
+}
 
-export default function DishPage({ params }: { params: { slug: string } }) {
-  const dish = getDish(params.slug);
+export default async function DishPage({ params }: { params: { slug: string } }) {
+  const dish = (await getMenu()).find((x) => x.slug === params.slug);
   if (!dish) notFound();
   return (
     <div className="container-x pb-10 pt-6">

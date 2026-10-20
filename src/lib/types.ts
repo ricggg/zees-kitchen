@@ -17,6 +17,7 @@ export interface Dish {
   price: number;              // naira
   image?: string;             // /menu/<file>.jpg — drop photos in /public/menu
   popular?: boolean;
+  soldOut?: boolean;          // set from admin overrides
   options?: OptionGroup[];
 }
 

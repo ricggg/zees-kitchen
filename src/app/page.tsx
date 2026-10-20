@@ -1,16 +1,17 @@
 import Link from 'next/link';
-import { categories, dishes } from '@/lib/menu-data';
+import { categories } from '@/lib/menu-data';
+import { getMenu } from '@/lib/menu';
 import DishCard from '@/components/DishCard';
 import { site } from '@/lib/site';
 
 const steps = [
   { t: 'Choose your meal', d: 'Browse local and continental dishes, pick your protein and extras, and add as many items as you like.' },
   { t: 'Pay at checkout', d: 'Pick pickup or home delivery, pay online, and receive your order code instantly.' },
-  { t: 'Collect or track', d: 'Show your code  to the delivery, or follow a live progress bar until the rider reaches your door.' },
+  { t: 'Collect or track', d: 'Show your code at the kitchen, or follow a live progress bar until the rider reaches your door.' },
 ];
 
-export default function Home() {
-  const popular = dishes.filter((d) => d.popular).slice(0, 4);
+export default async function Home() {
+  const popular = (await getMenu()).filter((d) => d.popular).slice(0, 4);
   return (
     <>
       {/* HERO: deep green panel + diagonal tagline ribbon from the banner */}

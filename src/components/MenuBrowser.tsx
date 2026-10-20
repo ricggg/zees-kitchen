@@ -1,10 +1,11 @@
 'use client';
 import { useMemo, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { categories, dishes } from '@/lib/menu-data';
+import { categories } from '@/lib/menu-data';
+import type { Dish } from '@/lib/types';
 import DishCard from './DishCard';
 
-export default function MenuBrowser() {
+export default function MenuBrowser({ dishes }: { dishes: Dish[] }) {
   const router = useRouter();
   const params = useSearchParams();
   const cat = params.get('cat') ?? 'all';
@@ -15,7 +16,7 @@ export default function MenuBrowser() {
     (cat === 'all' || d.category === cat) &&
     (kind === 'all' || d.type === kind) &&
     (q.trim() === '' || (d.name + ' ' + d.description).toLowerCase().includes(q.trim().toLowerCase()))
-  ), [cat, kind, q]);
+  ), [dishes, cat, kind, q]);
 
   const setCat = (c: string) => router.replace(c === 'all' ? '/menu' : `/menu?cat=${c}`, { scroll: false });
   const chip = (on: boolean) => `whitespace-nowrap rounded-full px-4 py-2 text-sm font-semibold transition min-h-[40px] ${on ? 'bg-forest-900 text-white' : 'bg-white text-forest-900 border border-forest-900/15 hover:border-leaf-600'}`;
