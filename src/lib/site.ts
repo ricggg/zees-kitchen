@@ -2,9 +2,9 @@ export const site = {
   name: "Zee's Kitchen",
   tagline: 'Try Dey Chop!',
   city: 'Asaba',
-  // Taken from the banner — confirm before launch.
-  phone: '08071585475',
-  whatsapp: '07066448523',
+  // Numbers supplied by Zee's Kitchen.
+  phone: '08071595475',
+  whatsapp: '09060474800',
   services: ['Fresh food', 'Fast delivery', 'Home-taste guaranteed', 'Indoor & outdoor catering'],
 };
 export const waLink = (msg = "Hello Zee's Kitchen") =>
