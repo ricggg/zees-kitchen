@@ -6,7 +6,7 @@ import { site } from '@/lib/site';
 const steps = [
   { t: 'Choose your meal', d: 'Browse local and continental dishes, pick your protein and extras, and add as many items as you like.' },
   { t: 'Pay at checkout', d: 'Pick pickup or home delivery, pay online, and receive your order code instantly.' },
-  { t: 'Collect or track', d: 'Show your code at the kitchen, or follow a live progress bar until the rider reaches your door.' },
+  { t: 'Collect or track', d: 'Show your code  to the delivery, or follow a live progress bar until the rider reaches your door.' },
 ];
 
 export default function Home() {
